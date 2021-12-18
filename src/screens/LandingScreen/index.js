@@ -14,23 +14,27 @@ import {
 	TopView,
 } from "./styledComponent";
 import { AntDesign } from "@expo/vector-icons";
+import { BloodDonation,TopWaveWB } from "svg";
+import perfectSize from "../../utils/pixelPerfect";
 
 const LandingScreen = ({ navigation }) => {
 	return (
 		<Screen>
-			<Image
+			{/* <Image
 				style={styles.img}
 				source={require("../../assets/images/WaveMobile.png")}
-			/>
+			/> */}
+			<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)}/>
 			<TopView>
 				<Text style={styles.heading}>GIVE THE GIFT OF LIFE.</Text>
 				<Text style={styles.heading1}>DONATE BLOOD.</Text>
 			</TopView>
 			<BottomView>
-				<Image
+				{/* <Image
 					style={styles.img}
 					source={require("../../assets/images/illustration.png")}
-				/>
+				/> */}
+				<BloodDonation height={perfectSize(290)} width={perfectSize(282)}/>
 				<DonateButton onPress={() => navigation.navigate("Login")}>
 					<DonateText>LOGIN</DonateText>
 				</DonateButton>

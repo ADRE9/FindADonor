@@ -5,6 +5,6 @@ const designResolution = {
 	height: 823,
 };
 
-const perfectSize = create(designResolution.dp);
+const perfectSize = create(designResolution.px);
 
 export default perfectSize;

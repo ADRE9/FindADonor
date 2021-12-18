@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Image, Button, Dimensions } from "react-native";
 import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
@@ -26,7 +26,11 @@ import {
 	RegisterAsDonor,
 	LogoutFromAll,
 } from "./styledComponent";
-import pixelPerfect from "../../utils/pixelPerfect";
+import { TopCircle } from "svg";
+import perfectSize from "../../utils/pixelPerfect";
+
+const { width } = Dimensions.get('window');
+
 
 const ProfileScreen = ({
 	logoutUserAction,
@@ -36,10 +40,11 @@ const ProfileScreen = ({
 }) => {
 	return (
 		<Screen>
-			<Image
+			{/* <Image
 				style={styles.circleImg}
 				source={require("../../assets/images/Circle.png")}
-			/>
+			/> */}
+			<TopCircle width={width} height={perfectSize(411)}/>
 			<TopView>
 				<LogoutView>
 					<Logout onPress={() => logoutUserAction()}>LOGOUT</Logout>
@@ -101,8 +106,8 @@ const styles = StyleSheet.create({
 	},
 	circle: {
 		backgroundColor: "black",
-		width: pixelPerfect(50),
-		height: pixelPerfect(50),
+		width: perfectSize(50),
+		height: perfectSize(50),
 	},
 	avatar: {
 		resizeMode: "contain",

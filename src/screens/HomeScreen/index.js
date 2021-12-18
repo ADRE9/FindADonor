@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
@@ -10,14 +10,15 @@ import SquaredCard from "../../components/SquareCard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import {TopWave,Banner} from "svg";
+import perfectSize from "../../utils/pixelPerfect";
+
+const { width } = Dimensions.get('window');
 
 const HomeScreen = ({ name, navigation }) => {
 	return (
 		<Screen>
-			<Image
-				style={styles.img}
-				source={require("../../assets/images/Wave2.png")}
-			/>
+			<TopWave width={width} height={perfectSize(327.33)}/>
 			<Name>Hi ! {name ? name.split(" ")[0] : "User"}</Name>
 			<BottomView>
 				<SquaredCard onPress={() => navigation.navigate("Search")}>

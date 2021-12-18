@@ -30,6 +30,9 @@ import Errors from "../../components/Errors";
 import { useFocusEffect } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { loginUserAction } from "../../redux/actions/userAction";
+import { TopWaveWB } from "svg";
+import perfectSize from "../../utils/pixelPerfect";
+
 
 const LoginScreen = ({ navigation, loginUserAction, isLoading }) => {
 	useFocusEffect(
@@ -59,10 +62,11 @@ const LoginScreen = ({ navigation, loginUserAction, isLoading }) => {
 	return (
 		<Screen>
 			<Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-				<Image
+				{/* <Image
 					style={styles.img}
 					source={require("../../assets/images/WaveMobile.png")}
-				/>
+				/> */}
+				<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)}/>
 				<TopView>
 					<Text style={styles.heading}>LOGIN</Text>
 				</TopView>
