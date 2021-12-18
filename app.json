@@ -20,15 +20,15 @@
       "supportsTablet": true
     },
     "android": {
-      "package":"com.sanins.findadonor",
+      "package": "com.lopa.findadonor",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "config":{
-        "googleMaps":{
-          "apiKey":"AIzaSyBJDuJPc12K8OKj1YLMLVMcNONCM4ng8zw"
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBke0roL5xjutmWM06NDyzWkqolzzhRgOw"
         }
       }
     },

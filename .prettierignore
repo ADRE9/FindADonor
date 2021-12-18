@@ -1,0 +1,11 @@
+# Ignore:
+.vscode
+build
+.expo
+.expo-shared
+.vscode
+assets
+node_modules
+.gitignore
+.prettierignore
+yarn.lock
