@@ -1,0 +1,16 @@
+{
+  "cmake.configureOnOpen": false,
+  "formatFiles.excludedFolders": [
+    ".vscode",
+    "build",
+    ".expo",
+    ".expo-shared",
+    ".vscode",
+    "assets",
+    "node_modules",
+    ".gitignore",
+    ".prettierignore",
+    ".git",
+    "yarn.lock"
+  ]
+}
