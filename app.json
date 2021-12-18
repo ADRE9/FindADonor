@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FindADonor",
-    "slug": "FindADonor",
+    "name": "Find-a-donor",
+    "slug": "Find-a-donor",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,9 +20,16 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"com.sanins.findadonor",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config":{
+        "googleMaps":{
+          "apiKey":"AIzaSyBJDuJPc12K8OKj1YLMLVMcNONCM4ng8zw"
+        }
       }
     },
     "web": {

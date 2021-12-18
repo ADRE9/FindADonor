@@ -1,0 +1,145 @@
+import React from 'react'
+import { StyleSheet, Text, View,Dimensions,Pressable,ActivityIndicator } from 'react-native'
+import MapView,{Marker,Callout} from 'react-native-maps';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import { Screen } from '../../components/Screen';
+import { FilterText, FilterView, SideView,MapCard, Title, Description } from './styledComponent';
+import { AntDesign } from '@expo/vector-icons';
+import Animated, { useSharedValue, Easing, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { connect } from 'react-redux';
+import { findAllDonors } from '../../redux/actions/donorsAction';
+import { useFocusEffect } from '@react-navigation/native';
+
+const SearchScreen=({ navigation,location,findAllDonors,donors })=> {
+  const startWidth = -wp('100');
+  const endWidth = wp('0');
+  const translateX = useSharedValue(startWidth);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const subscribe=async() => await findAllDonors();
+
+      subscribe();
+    }, [])
+  );
+
+  const viewStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }]
+    }
+  });
+
+  const openDrawer = () => {
+    translateX.value = withTiming(endWidth, {
+      duration: 500,
+      easing: Easing.out(Easing.exp),
+    });
+  }
+
+  const closeDrawer = () => {
+    translateX.value = withTiming(startWidth, {
+      duration: 500,
+      easing: Easing.out(Easing.exp),
+    });
+  }
+
+  return (
+    <Screen>
+      {location&&donors!==null ?
+        (
+          <>
+            <MapView
+              initialRegion={{
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }} customMapStyle={require('../../utils/map.json')} style={styles.map}>
+                <Marker 
+                  key={1}
+                  coordinate={location.coords}
+                  title="Me"
+                  pinColor="aqua"
+                  description="My Location"
+              />
+              {console.log(donors)}
+              {donors.map((donor, index) => (
+                <Marker
+                  key={index}
+                  coordinate={donor.location}
+                  title={donor.name}
+                  pinColor="red"
+                  description="Donor"
+                >
+                  <Callout tooltip>
+                    <MapCard>
+                      <Title>
+                        {donor.name}
+                      </Title>
+                      <Description>
+                       Mob: - {donor.phoneNumber}
+                      </Description>
+                      <Description>
+                       DONOR
+                      </Description>
+                    </MapCard>
+                  </Callout>
+                </Marker>
+              ))}
+              </MapView>
+              <FilterView onPress={()=>openDrawer()}>
+                <AntDesign name="filter" size={hp('3')} color="#fff" />
+                <FilterText>FILTER</FilterText>
+              </FilterView>
+            <Animated.View style={[styles.sideMenu, viewStyle]}>
+              <View style={styles.menu}>
+
+              </View>
+              <Pressable onPress={()=>closeDrawer()} style={styles.backdrop}>
+
+              </Pressable>
+              </Animated.View>
+            </>
+        )
+          : <ActivityIndicator style={{alignSelf:"center"}} size="large"/>}
+    </Screen>
+  )
+}
+
+const mapStateToProps = (state) => {
+  return {location:state.user.location?state.user.location:null,donors:state.donors.donors}
+}
+
+export default connect(mapStateToProps, {
+  findAllDonors
+})(SearchScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  map: {
+    flex: 1,
+  },
+  sideMenu: {
+    position: 'absolute',
+    flexDirection: 'row',
+    width: wp('100'),
+    height: hp('110'),
+  },
+  menu: {
+    backgroundColor: '#f88386',
+    width: wp('70'),
+    height: hp('110'),
+  },
+  backdrop: {
+    width: wp('30'),
+    height: hp('110'),
+  }
+})
