@@ -27,12 +27,14 @@ import {
 	Filters,
 	Italic,
 	Profile,
+	ActionButton,
 	Title,
 } from "./styledComponents";
 import { findAllDonors } from "../../redux/actions/donorsAction";
 import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
-import { RequestButton } from "../SearchScreen/styledComponent";
+import { MaleAvatar } from "svg";
+
 
 function DonorsScreen({ findAllDonors, donors }) {
 	const [distance, setDistance] = useState(null);
@@ -52,10 +54,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 			<Card>
 				<Profile>
 					<Avatar>
-						<Image
-							style={styles.avatar}
-							source={require("../../assets/images/Avatar.png")}
-						/>
+						<MaleAvatar style={styles.avatar} />
 					</Avatar>
 					<View>
 						<Title numberOfLines={1}>{donor.name}</Title>
@@ -67,7 +66,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 							{donor.age + " years old"}
 						</Description>
 						<Description>
-							<AntDesign name="phone" size={hp("1")} color="#fff" />
+							<AntDesign name="phone" size={hp("1")} color="#000" />
 							{" " + donor.phoneNumber}
 						</Description>
 					</View>
@@ -79,9 +78,14 @@ function DonorsScreen({ findAllDonors, donors }) {
 						</Capitalize>
 					</Italic>
 				</Description>
-				<RequestButton>
-					<Text>Request the Donor</Text>
-				</RequestButton>
+				<View style={{flexDirection: "row"}}>
+					<ActionButton>
+						<Text style={styles.buttonText}>Request</Text>
+					</ActionButton>
+					<ActionButton>
+						<Text style={styles.buttonText}>Locate</Text>
+					</ActionButton>
+				</View>
 			</Card>
 		);
 	};
@@ -122,17 +126,17 @@ function DonorsScreen({ findAllDonors, donors }) {
 					style={{ marginTop: 2 }}
 				/>
 			</TouchableOpacity> */}
-			{/* <FlatList
+			{/* <FAB
+					style={styles.filterIconBox}
+					icon="filter"
+					color="#F88386"
+					onPress={() => setIsFilterOpen(!isFilterOpen)}
+				/> */}
+			<FlatList
 				data={donors}
 				renderItem={renderItem}
 				keyExtractor={donor => donor._id}
-			/> */}
-			{/* <FAB
-				style={styles.filterIconBox}
-				icon="filter"
-				color="#F88386"
-				onPress={() => setIsFilterOpen(!isFilterOpen)}
-			/> */}
+			/>
 		</Screen>
 	);
 }
@@ -148,6 +152,14 @@ export default connect(mapStateToProps, {
 })(DonorsScreen);
 
 const styles = StyleSheet.create({
+	avatar:{
+		height: "100%",
+		width: "100%"
+	},
+	buttonText:{
+		color: "white",
+
+	},
 	filterIconBox: {
 		width: 50,
 		height: 50,
