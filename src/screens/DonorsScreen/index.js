@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	Button,
-	Pressable,
-	Keyboard,
-} from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import AppBar from "../../components/AppBar";
 import FilterBar from "../../components/FilterBar";
 import { Screen } from "../../components/Screen";
 import {
 	Avatar,
-	Body,
 	Capitalize,
 	Card,
 	Description,
@@ -62,6 +52,10 @@ function DonorsScreen({ findAllDonors, donors }) {
 							)}
 
 							{donor.age + " years old"}
+						</Description>
+						<Description>
+							<AntDesign name="mail" size={hp("1")} color="#000" />
+							{" " + donor.email}
 						</Description>
 						<Description>
 							<AntDesign name="phone" size={hp("1")} color="#000" />
@@ -130,13 +124,17 @@ function DonorsScreen({ findAllDonors, donors }) {
 					color="#F88386"
 					onPress={() => setIsFilterOpen(!isFilterOpen)}
 				/> */}
-			<FlatList
-				data={donors}
-				renderItem={renderItem}
-				keyExtractor={donor => donor._id}
-				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-				contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
-			/>
+			{donors === null ? (
+				<Title style={{marginTop: 30, textAlign: "center"}}>Loading...</Title>
+			) : (
+				<FlatList
+					data={donors}
+					renderItem={renderItem}
+					keyExtractor={donor => donor._id}
+					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+					contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+				/>
+			)}
 		</Screen>
 	);
 }

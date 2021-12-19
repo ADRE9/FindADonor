@@ -6,3 +6,4 @@ export { default as BloodDonation } from './BloodDonation.svg';
 export { default as FemaleAvatar } from './avatar-f.svg';
 export { default as MaleAvatar } from './avatar-m.svg';
 export { default as MaleAvatar2 } from './Avatar.svg';
+export { default as BankLocation } from './bankGPS.svg';

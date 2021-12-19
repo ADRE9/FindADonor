@@ -12,6 +12,11 @@ export default function HomeStack() {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
+				options={{ header: () => null }}
+				name="HomeScreen"
+				component={HomeScreen}
+			/>
+			<Stack.Screen
 				options={{
 					header: ({ navigation }) => (
 						<AppBar
@@ -24,12 +29,14 @@ export default function HomeStack() {
 				component={DonorsScreen}
 			/>
 			<Stack.Screen
-				options={{ header: () => null }}
-				name="HomeScreen"
-				component={HomeScreen}
-			/>
-			<Stack.Screen
-				options={{ header: () => null }}
+				options={{
+					header: ({ navigation }) => (
+						<AppBar
+							title={"NEARBY BLOOD BANKS"}
+							goBack={() => navigation.goBack()}
+						/>
+					),
+				}}
 				name="Bank"
 				component={BanksScreen}
 			/>

@@ -39,7 +39,7 @@ export const Avatar = styled.View`
 export const Title = styled.Text`
 	color: #707070;
 	font-size: ${hp("2.4")}px;
-	margin-bottom: ${hp("1")}px;
+	margin-bottom: ${hp("0.2")}px;
 	font-weight: 600
 	margin-left: 10px;
 `;
