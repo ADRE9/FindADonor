@@ -21,7 +21,7 @@ const HomeScreen = ({ name, navigation }) => {
 			<TopWave width={width} height={perfectSize(327.33)}/>
 			<Name>Hi ! {name ? name.split(" ")[0] : "User"}</Name>
 			<BottomView>
-				<SquaredCard onPress={() => navigation.navigate("Search")}>
+				<SquaredCard onPress={() => navigation.navigate("Donor")}>
 					<MaterialCommunityIcons
 						name="account-search-outline"
 						size={50}
