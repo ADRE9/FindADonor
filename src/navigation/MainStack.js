@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { fetchLocation } from "../redux/actions/userAction";
 import { AntDesign } from "@expo/vector-icons";
 
-import HomeScreen from "../screens/HomeScreen";
 import SearchScreen from "../screens/SearchScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { connect } from "react-redux";
+import HomeStack from "./HomeStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ const MainStack = ({ fetchLocation }) => {
 			<Tab.Screen
 				options={{ header: () => null }}
 				name="Home"
-				component={HomeScreen}
+				component={HomeStack}
 			/>
 			<Tab.Screen
 				options={{ header: () => null }}
