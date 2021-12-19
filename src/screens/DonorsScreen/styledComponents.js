@@ -19,7 +19,7 @@ export const Filters = styled.View`
 export const Card = styled.View`
 	background-color: #fff;
 	padding: 10px 15px;
-	margin: 20px 10px 0;
+	margin: 0px 10px;
 	elevation: 5;
 	border-radius: 5px;
 `;

@@ -35,7 +35,6 @@ import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { MaleAvatar } from "svg";
 
-
 function DonorsScreen({ findAllDonors, donors }) {
 	const [distance, setDistance] = useState(null);
 	const [blood, setBlood] = useState(null);
@@ -49,7 +48,6 @@ function DonorsScreen({ findAllDonors, donors }) {
 	);
 	const renderItem = donorObj => {
 		const donor = donorObj.item;
-		console.log(donor);
 		return (
 			<Card>
 				<Profile>
@@ -78,7 +76,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 						</Capitalize>
 					</Italic>
 				</Description>
-				<View style={{flexDirection: "row"}}>
+				<View style={{ flexDirection: "row" }}>
 					<ActionButton>
 						<Text style={styles.buttonText}>Request</Text>
 					</ActionButton>
@@ -136,6 +134,8 @@ function DonorsScreen({ findAllDonors, donors }) {
 				data={donors}
 				renderItem={renderItem}
 				keyExtractor={donor => donor._id}
+				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+				contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
 			/>
 		</Screen>
 	);
@@ -152,13 +152,12 @@ export default connect(mapStateToProps, {
 })(DonorsScreen);
 
 const styles = StyleSheet.create({
-	avatar:{
+	avatar: {
 		height: "100%",
-		width: "100%"
+		width: "100%",
 	},
-	buttonText:{
+	buttonText: {
 		color: "white",
-
 	},
 	filterIconBox: {
 		width: 50,
