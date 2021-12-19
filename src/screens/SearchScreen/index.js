@@ -93,7 +93,7 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 							pinColor="aqua"
 							description="My Location"
 						/>
-						{console.log(donors)}
+						{/* {console.log(donors)} */}
 						{donors.map((donor, index) => (
 							<Marker
 								key={index}

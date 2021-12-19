@@ -4,17 +4,52 @@ import {
 	widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
-export const Body = styled.View`
-	/* background-color: aliceblue; */
-	flex: 1;
+export const Flex = styled.View`
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: center;
 	flex-direction: row;
-	flex-wrap: wrap;
 `;
 
-export const CardTitle = styled.Text`
-	color: #343640;
+export const Filters = styled.View`
+	background-color: #fff;
+	padding-bottom: 15px;
+	elevation: 2;
+`;
+
+export const Card = styled.View`
+	background-color: red;
+	padding-bottom: 5px;
+`;
+
+export const Profile = styled.View`
+	flex-direction: row;
+`;
+
+export const Avatar = styled.View`
+	width: ${wp("15")}px;
+	height: ${wp("15")}px;
+	margin: ${wp("2")}px;
+	border-radius: 200px;
+	background-color: #0f0;
+`;
+
+export const Title = styled.Text`
+	color: white;
+	font-size: ${hp("2.4")}px;
+	margin-bottom: ${hp("1")}px;
+`;
+export const Description = styled.Text`
+	color: white;
+	font-size: ${hp("1.3")}px;
+`;
+export const Capitalize = styled.Text`
+	text-transform: capitalize;
+`;
+export const Bold = styled.Text`
+	font-weight: bold;
+`;
+export const Italic = styled.Text`
+	font-style: italic;
 `;
 
 export const Name = styled.Text`
