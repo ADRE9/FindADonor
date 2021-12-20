@@ -17,6 +17,10 @@ export default function App() {
 	const [isReady, setIsReady] = useState(null);
 	const [loaded] = useFonts({
 		Indie: require("./src/assets/fonts/IndieFlower-Regular.ttf"),
+		"Segoe UI Bold Italic": require("./src/assets/fonts/Segoe-UI-Bold-Italic.ttf"),
+		"Segoe UI Bold": require("./src/assets/fonts/Segoe-UI-Bold.ttf"),
+		"Segoe UI Italic": require("./src/assets/fonts/Segoe-UI-Italic.ttf"),
+		"Segoe UI Regualar": require("./src/assets/fonts/Segoe-UI-Regualar.ttf"),
 	});
 
 	const _cacheResourcesAsync = async () => {
@@ -30,7 +34,13 @@ export default function App() {
 			require("./src/assets/images/DonorAvatar.png"),
 		];
 
-		const fonts = [require("./src/assets/fonts/IndieFlower-Regular.ttf")];
+		const fonts = [
+			require("./src/assets/fonts/IndieFlower-Regular.ttf"),
+			require("./src/assets/fonts/Segoe-UI-Bold-Italic.ttf"),
+			require("./src/assets/fonts/Segoe-UI-Bold.ttf"),
+			require("./src/assets/fonts/Segoe-UI-Italic.ttf"),
+			require("./src/assets/fonts/Segoe-UI-Regualar.ttf"),
+		];
 
 		const cacheImages = images.map(image => {
 			return Asset.fromModule(image).downloadAsync();
