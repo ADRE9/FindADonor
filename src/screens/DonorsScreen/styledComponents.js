@@ -17,8 +17,11 @@ export const Filters = styled.View`
 `;
 
 export const Card = styled.View`
-	background-color: red;
-	padding-bottom: 5px;
+	background-color: #fff;
+	padding: 10px 15px;
+	margin: 0px 10px;
+	elevation: 5;
+	border-radius: 5px;
 `;
 
 export const Profile = styled.View`
@@ -34,14 +37,30 @@ export const Avatar = styled.View`
 `;
 
 export const Title = styled.Text`
-	color: white;
+	color: #707070;
 	font-size: ${hp("2.4")}px;
-	margin-bottom: ${hp("1")}px;
+	margin-bottom: ${hp("0.2")}px;
+	font-weight: 600
+	margin-left: 10px;
 `;
 export const Description = styled.Text`
-	color: white;
+	color: #909090;
 	font-size: ${hp("1.3")}px;
+	margin-left: 10px;
 `;
+
+export const ActionButton = styled.TouchableOpacity`
+	height: ${hp("3.5")}px;
+	background-color: #f88386;
+	align-items: center;
+	justify-content: center;
+	padding: 0 20px;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	flex-direction: row;
+`;
+
 export const Capitalize = styled.Text`
 	text-transform: capitalize;
 `;
