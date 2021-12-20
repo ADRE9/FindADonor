@@ -29,7 +29,7 @@ const HomeScreen = ({ name, navigation }) => {
 					/>
 					<CardTitle>FIND A DONOR</CardTitle>
 				</SquaredCard>
-				<SquaredCard onPress={() => navigation.navigate("Search")}>
+				<SquaredCard onPress={() => navigation.navigate("Bank")}>
 					<MaterialCommunityIcons name="blood-bag" size={50} color="#f88386" />
 					<CardTitle>BLOOD BANK</CardTitle>
 				</SquaredCard>

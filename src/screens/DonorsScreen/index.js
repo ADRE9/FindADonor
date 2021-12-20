@@ -1,38 +1,29 @@
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	Button,
-	Pressable,
-	Keyboard,
-} from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import AppBar from "../../components/AppBar";
 import FilterBar from "../../components/FilterBar";
 import { Screen } from "../../components/Screen";
 import {
 	Avatar,
-	Body,
 	Capitalize,
 	Card,
 	Description,
 	Filters,
 	Italic,
 	Profile,
+	ActionButton,
 	Title,
 } from "./styledComponents";
 import { findAllDonors } from "../../redux/actions/donorsAction";
 import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
-import { RequestButton } from "../SearchScreen/styledComponent";
+import { MaleAvatar } from "svg";
 
 function DonorsScreen({ findAllDonors, donors }) {
 	const [distance, setDistance] = useState(null);
@@ -47,15 +38,11 @@ function DonorsScreen({ findAllDonors, donors }) {
 	);
 	const renderItem = donorObj => {
 		const donor = donorObj.item;
-		console.log(donor);
 		return (
 			<Card>
 				<Profile>
 					<Avatar>
-						<Image
-							style={styles.avatar}
-							source={require("../../assets/images/Avatar.png")}
-						/>
+						<MaleAvatar style={styles.avatar} />
 					</Avatar>
 					<View>
 						<Title numberOfLines={1}>{donor.name}</Title>
@@ -67,7 +54,11 @@ function DonorsScreen({ findAllDonors, donors }) {
 							{donor.age + " years old"}
 						</Description>
 						<Description>
-							<AntDesign name="phone" size={hp("1")} color="#fff" />
+							<AntDesign name="mail" size={hp("1")} color="#000" />
+							{" " + donor.email}
+						</Description>
+						<Description>
+							<AntDesign name="phone" size={hp("1")} color="#000" />
 							{" " + donor.phoneNumber}
 						</Description>
 					</View>
@@ -79,9 +70,14 @@ function DonorsScreen({ findAllDonors, donors }) {
 						</Capitalize>
 					</Italic>
 				</Description>
-				<RequestButton>
-					<Text>Request the Donor</Text>
-				</RequestButton>
+				<View style={{ flexDirection: "row" }}>
+					<ActionButton>
+						<Text style={styles.buttonText}>Request</Text>
+					</ActionButton>
+					<ActionButton>
+						<Text style={styles.buttonText}>Locate</Text>
+					</ActionButton>
+				</View>
 			</Card>
 		);
 	};
@@ -122,17 +118,23 @@ function DonorsScreen({ findAllDonors, donors }) {
 					style={{ marginTop: 2 }}
 				/>
 			</TouchableOpacity> */}
-			{/* <FlatList
-				data={donors}
-				renderItem={renderItem}
-				keyExtractor={donor => donor._id}
-			/> */}
 			{/* <FAB
-				style={styles.filterIconBox}
-				icon="filter"
-				color="#F88386"
-				onPress={() => setIsFilterOpen(!isFilterOpen)}
-			/> */}
+					style={styles.filterIconBox}
+					icon="filter"
+					color="#F88386"
+					onPress={() => setIsFilterOpen(!isFilterOpen)}
+				/> */}
+			{donors === null ? (
+				<Title style={{marginTop: 30, textAlign: "center"}}>Loading...</Title>
+			) : (
+				<FlatList
+					data={donors}
+					renderItem={renderItem}
+					keyExtractor={donor => donor._id}
+					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+					contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+				/>
+			)}
 		</Screen>
 	);
 }
@@ -148,6 +150,13 @@ export default connect(mapStateToProps, {
 })(DonorsScreen);
 
 const styles = StyleSheet.create({
+	avatar: {
+		height: "100%",
+		width: "100%",
+	},
+	buttonText: {
+		color: "white",
+	},
 	filterIconBox: {
 		width: 50,
 		height: 50,

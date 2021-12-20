@@ -33,7 +33,11 @@ const FilterBar = ({
 						return (
 							<Option
 								key={`option-${i}`}
-								onPress={() => setActiveOption(option)}
+								onPress={() =>
+									option === activeOption
+										? setActiveOption(null)
+										: setActiveOption(option)
+								}
 							>
 								<Text
 									style={
