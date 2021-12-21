@@ -24,18 +24,16 @@ import schema from "../../validators/registerSchema1";
 import { Formik } from "formik";
 import Errors from "../../components/Errors";
 import DisabledButton from "../../components/DisabledButton";
+import { TopWaveWB } from "svg";
+import perfectSize from "../../utils/pixelPerfect";
 
 export default function index({ navigation }) {
 	return (
 		<Screen>
 			<Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-				<Image
-					style={styles.img}
-					source={require("../../assets/images/WaveMobile.png")}
-				/>
-				<TopView>
-					<Text style={styles.heading}>REGISTER</Text>
-				</TopView>
+				<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
+				<Text style={styles.heading}>REGISTER</Text>
+
 				<BottomView>
 					<Formik
 						validationSchema={schema}
@@ -125,6 +123,10 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "white",
 		fontSize: hp("6%"),
+		position: "absolute",
+		top: perfectSize(150),
+		textAlign: "center",
+		width: "100%",
 	},
 	viewHeading: {
 		position: "absolute",

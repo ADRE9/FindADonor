@@ -31,11 +31,6 @@ export const DonorButton = styled.TouchableOpacity`
 	margin-top: ${hp("3%")}px;
 `;
 
-export const TopView = styled.View`
-	position: absolute;
-	margin: ${hp("18%")}px ${wp("10%")}px ${wp("0%")}px ${wp("10%")}px;
-`;
-
 export const BottomView = styled.View`
 	flex: 1;
 	/* background-color: aliceblue; */
