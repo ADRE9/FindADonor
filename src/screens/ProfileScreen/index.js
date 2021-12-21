@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, Dimensions } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	Button,
+	Dimensions,
+	TouchableOpacity,
+} from "react-native";
 import {
 	heightPercentageToDP as hp,
 	widthPercentageToDP as wp,
@@ -22,15 +30,50 @@ import {
 	BottomView,
 	QuoteCard,
 	Quote,
-	RegisterDonor,
+	ActionButton,
 	RegisterAsDonor,
 	LogoutFromAll,
+	Role,
+	Box,
+	Value,
+	Key,
+	ButtonText,
+	Card,
+	CardButton,
 } from "./styledComponent";
 import { TopCircle } from "svg";
 import perfectSize from "../../utils/pixelPerfect";
+import { FemaleAvatar, MaleAvatar } from "../../assets/svg";
+import StatusBarGap from "../../components/StatusBarGap";
+import Icon from "../../components/Icon";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
+const CircularButton = props => {
+	return (
+		<TouchableOpacity
+			{...props}
+			activeOpacity={0.9}
+			style={{
+				backgroundColor: "white",
+				justifyContent: "center",
+				alignItems: "center",
+				// padding: 0,
+				// right: 0,
+				top: perfectSize(30),
+				borderRadius: perfectSize(100),
+				margin: perfectSize(25),
+				width: perfectSize(50),
+				height: perfectSize(50),
+				backgroundColor: "#fff",
+				elevation: 5,
+			}}
+			{...props}
+		>
+			{props.children}
+		</TouchableOpacity>
+	);
+};
 
 const ProfileScreen = ({
 	logoutUserAction,
@@ -40,50 +83,92 @@ const ProfileScreen = ({
 }) => {
 	return (
 		<Screen>
-			{/* <Image
-				style={styles.circleImg}
-				source={require("../../assets/images/Circle.png")}
-			/> */}
-			<TopCircle width={width} height={perfectSize(411)}/>
+			<TopCircle width={width} height={perfectSize(411)} />
 			<TopView>
-				<LogoutView>
-					<Logout onPress={() => logoutUserAction()}>LOGOUT</Logout>
-				</LogoutView>
+				<StatusBarGap height={4.8} />
 				<ProfileCircle>
 					{console.log(userData.role)}
-					<Image
-						style={styles.avatar}
-						source={
-							userData.role === "user"
-								? require("../../assets/images/Avatar.png")
-								: require("../../assets/images/DonorAvatar.png")
-						}
-					/>
+					{userData.role === "user" ? <MaleAvatar /> : <FemaleAvatar />}
 				</ProfileCircle>
-				<Name>{userData.name.toUpperCase()}</Name>
-				<BloodGroup>
-					{userData.bloodGroup.charAt(0).toUpperCase() +
-						userData.bloodGroup.slice(1)}
-				</BloodGroup>
-				<Age>{userData.age} years old</Age>
+				<Name>{userData.name}</Name>
+				<Role>{userData.role.toUpperCase()}</Role>
+
+				<Box>
+					<CircularButton>
+						<Icon
+							iconPack="feather"
+							name="phone"
+							size={20}
+							color="#f88386"
+						></Icon>
+					</CircularButton>
+					<CircularButton>
+						<Icon
+							iconPack="feather"
+							name="mail"
+							size={20}
+							color="#f88386"
+						></Icon>
+					</CircularButton>
+				</Box>
 			</TopView>
+
 			<BottomView>
-				<QuoteCard style={{ elevation: 2 }}>
-					<Quote>
-						“Blood Donation will cost you nothing , but it will save a life!”
-					</Quote>
-				</QuoteCard>
-				{userData.role === "user" ? (
-					<RegisterDonor
-						onPress={() => registerDonor()}
-						style={{ elevation: 4 }}
-					>
-						<RegisterAsDonor>REGISTER AS DONOR</RegisterAsDonor>
-					</RegisterDonor>
-				) : null}
-				<LogoutFromAll onPress={() => findAllDonors()}>
+				<Box
+					style={{
+						marginTop: 30,
+						justifyContent: "space-evenly",
+						width: "100%",
+					}}
+				>
+					<View>
+						<Value>
+							{userData.bloodGroup
+								.slice(0, -2)
+								.replace(/^\w/, c => c.toUpperCase())}
+						</Value>
+						<Key>Blood Group</Key>
+					</View>
+					<View>
+						<Value>{userData.age}</Value>
+						<Key>Age</Key>
+					</View>
+				</Box>
+
+				<View style={{ height: perfectSize(40) }}></View>
+				<ActionButton>
+					<Logout onPress={() => logoutUserAction()}>Logout</Logout>
+				</ActionButton>
+
+				{/* <LogoutFromAll onPress={() => findAllDonors()}>
 					<RegisterAsDonor>LOGOUT FROM ALL DEVICES</RegisterAsDonor>
-				</LogoutFromAll>
+				</LogoutFromAll> */}
+
+				{userData.role === "user" ? (
+					<Card>
+						<Text style={{ color: "#707070" }}>
+							“Blood Donation will cost you nothing , but it will save a life!”
+						</Text>
+
+						<CardButton
+							onPress={() => registerDonor()}
+							style={({ pressed }) => [
+								{ backgroundColor: pressed ? "#f88386" : "white" },
+							]}
+						>
+							{({ pressed }) => (
+								<ButtonText
+									style={[
+										{ color: pressed ? "white" : "#f88386" },
+										styles.btnText,
+									]}
+								>
+									Register as Donor
+								</ButtonText>
+							)}
+						</CardButton>
+					</Card>
+				) : null}
 			</BottomView>
 		</Screen>
 	);

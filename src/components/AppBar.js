@@ -6,6 +6,7 @@ import {
 } from "react-native-responsive-screen";
 import { Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import StatusBarGap from "./StatusBarGap";
 
 const Root = styled.View`
 	height: ${hp(12)}px;
@@ -25,10 +26,6 @@ const BackButton = styled.TouchableOpacity`
 	left: 0
 	top: 0;
 	z-index: 20;
-`;
-
-const StatusBarGap = styled.View`
-	height: ${hp(2.4)}px;
 `;
 
 const Appbar = styled.View`

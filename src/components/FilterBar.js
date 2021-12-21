@@ -27,7 +27,7 @@ const FilterBar = ({
 				/>
 			</IconBox>
 
-			<ScrollView horizontal={true}>
+			<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 				<View style={styles.optionsContainer}>
 					{options.map((option, i) => {
 						return (
@@ -38,7 +38,7 @@ const FilterBar = ({
 										? setActiveOption(null)
 										: setActiveOption(option)
 								}
-							>
+							>ks
 								<Text
 									style={
 										activeOption === option

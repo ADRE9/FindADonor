@@ -21,7 +21,7 @@ const NextButton = props => (
 			width: perfectSize(78),
 			height: perfectSize(78),
 			backgroundColor: "#37474F",
-			elevation: 3,
+			elevation: 5,
 		}}
 	>
 		<Next />
