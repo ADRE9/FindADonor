@@ -28,6 +28,8 @@ import { registerUserAction } from "../../redux/actions/userAction";
 import Errors from "../../components/Errors";
 import { Formik } from "formik";
 import { connect } from "react-redux";
+import perfectSize from "../../utils/pixelPerfect";
+import { TopWaveWB } from "svg";
 
 const RegisterScreen2 = ({
 	navigation,
@@ -62,13 +64,8 @@ const RegisterScreen2 = ({
 	return (
 		<Screen>
 			<Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-				<Image
-					style={styles.img}
-					source={require("../../assets/images/WaveMobile.png")}
-				/>
-				<TopView>
-					<Text style={styles.heading}>REGISTER</Text>
-				</TopView>
+				<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
+				<Text style={styles.heading}>REGISTER</Text>
 				<BottomView>
 					<Formik
 						validationSchema={schema}
@@ -191,6 +188,10 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "white",
 		fontSize: hp("6%"),
+		position: "absolute",
+		top: perfectSize(150),
+		textAlign: "center",
+		width: "100%",
 	},
 	viewHeading: {
 		position: "absolute",
