@@ -35,12 +35,6 @@ export const LoginText = styled.Text`
 	font-size: ${hp("2%")}px;
 `;
 
-export const TopView = styled.View`
-	position: absolute;
-	margin: ${hp("18%")}px ${wp("10%")}px ${wp("0%")}px ${wp("10%")}px;
-	/* align-self:center */
-`;
-
 export const BottomView = styled.View`
 	flex: 1;
 	/* background-color: aliceblue; */

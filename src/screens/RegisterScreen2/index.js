@@ -6,14 +6,12 @@ import {
 	Image,
 	Button,
 	Pressable,
-	Keyboard,
 	ActivityIndicator,
 } from "react-native";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Screen } from "../../components/Screen";
 import {
 	SignupButton,
 	LoginText,
@@ -30,6 +28,7 @@ import { Formik } from "formik";
 import { connect } from "react-redux";
 import perfectSize from "../../utils/pixelPerfect";
 import { TopWaveWB } from "svg";
+import { KeyboardUsingScreen } from "../../components/KeyboardUsingScreen";
 
 const RegisterScreen2 = ({
 	navigation,
@@ -62,117 +61,115 @@ const RegisterScreen2 = ({
 	};
 
 	return (
-		<Screen>
-			<Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-				<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
-				<Text style={styles.heading}>REGISTER</Text>
-				<BottomView>
-					<Formik
-						validationSchema={schema}
-						initialValues={{
-							landmark: "",
-							city: "",
-							district: "",
-							state: "",
-							password: "",
-						}}
-						onSubmit={values => register(values)}
-						validateOnMount
-					>
-						{({
-							handleChange,
-							handleBlur,
-							handleSubmit,
-							values,
-							errors,
-							isValid,
-							touched,
-						}) => (
-							<>
-								<DropDownPicker
-									placeholder="Blood Group"
-									open={open}
-									value={value}
-									items={items}
-									setOpen={setOpen}
-									setValue={setValue}
-									setItems={setItems}
-									style={styles.dropdown}
-									defaultIndex={0}
-									dropDownStyle={styles.dropDownStyle}
-									containerStyle={styles.containerStyle}
-									onChangeItem={item => console.log(item.label, item.value)}
-								/>
-								<StyledInput
-									placeholder="House No , Landmark , Building"
-									value={values.landmark}
-									onChangeText={handleChange("landmark")}
-									autoCorrect={false}
-									onBlur={handleBlur("landmark")}
-								/>
-								{values.landmark.length !== 0 &&
-									errors.landmark &&
-									touched.landmark && <Errors texts={errors.landmark} />}
-								<StyledInput
-									placeholder="City"
-									value={values.city}
-									onChangeText={handleChange("city")}
-									autoCorrect={false}
-									onBlur={handleBlur("city")}
-								/>
-								{values.city.length !== 0 && errors.city && touched.city && (
-									<Errors texts={errors.city} />
-								)}
-								<StyledInput
-									placeholder="District"
-									value={values.district}
-									onChangeText={handleChange("district")}
-									autoCorrect={false}
-									onBlur={handleBlur("district")}
-								/>
-								{values.district.length !== 0 &&
-									errors.district &&
-									touched.district && <Errors texts={errors.district} />}
-								<StyledInput
-									placeholder="State"
-									value={values.state}
-									onChangeText={handleChange("state")}
-									autoCorrect={false}
-									onBlur={handleBlur("state")}
-								/>
-								{values.state.length !== 0 && errors.state && touched.state && (
-									<Errors texts={errors.state} />
-								)}
-								<StyledInput
-									placeholder="Password"
-									value={values.password}
-									onChangeText={handleChange("password")}
-									autoCorrect={false}
-									secureTextEntry={true}
-									onBlur={handleBlur("password")}
-								/>
-								{values.password.length !== 0 &&
-									errors.password &&
-									touched.password && <Errors texts={errors.password} />}
-								{isValid && value !== null ? (
-									<LoginButton onPress={handleSubmit}>
-										<LoginText>REGISTER</LoginText>
-									</LoginButton>
-								) : isLoading ? (
-									<LoginButton onPress={handleSubmit}>
-										<ActivityIndicator size="small" color="#fff" />
-									</LoginButton>
-								) : (
-									<DisabledButton>
-										<LoginText>REGISTER</LoginText>
-									</DisabledButton>
-								)}
-							</>
-						)}
-					</Formik>
-				</BottomView>
-			</Pressable>
-		</Screen>
+		<KeyboardUsingScreen>
+			<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
+			<Text style={styles.heading}>REGISTER</Text>
+			<BottomView>
+				<Formik
+					validationSchema={schema}
+					initialValues={{
+						landmark: "",
+						city: "",
+						district: "",
+						state: "",
+						password: "",
+					}}
+					onSubmit={values => register(values)}
+					validateOnMount
+				>
+					{({
+						handleChange,
+						handleBlur,
+						handleSubmit,
+						values,
+						errors,
+						isValid,
+						touched,
+					}) => (
+						<>
+							<DropDownPicker
+								placeholder="Blood Group"
+								open={open}
+								value={value}
+								items={items}
+								setOpen={setOpen}
+								setValue={setValue}
+								setItems={setItems}
+								style={styles.dropdown}
+								defaultIndex={0}
+								dropDownStyle={styles.dropDownStyle}
+								containerStyle={styles.containerStyle}
+								onChangeItem={item => console.log(item.label, item.value)}
+							/>
+							<StyledInput
+								placeholder="House No , Landmark , Building"
+								value={values.landmark}
+								onChangeText={handleChange("landmark")}
+								autoCorrect={false}
+								onBlur={handleBlur("landmark")}
+							/>
+							{values.landmark.length !== 0 &&
+								errors.landmark &&
+								touched.landmark && <Errors texts={errors.landmark} />}
+							<StyledInput
+								placeholder="City"
+								value={values.city}
+								onChangeText={handleChange("city")}
+								autoCorrect={false}
+								onBlur={handleBlur("city")}
+							/>
+							{values.city.length !== 0 && errors.city && touched.city && (
+								<Errors texts={errors.city} />
+							)}
+							<StyledInput
+								placeholder="District"
+								value={values.district}
+								onChangeText={handleChange("district")}
+								autoCorrect={false}
+								onBlur={handleBlur("district")}
+							/>
+							{values.district.length !== 0 &&
+								errors.district &&
+								touched.district && <Errors texts={errors.district} />}
+							<StyledInput
+								placeholder="State"
+								value={values.state}
+								onChangeText={handleChange("state")}
+								autoCorrect={false}
+								onBlur={handleBlur("state")}
+							/>
+							{values.state.length !== 0 && errors.state && touched.state && (
+								<Errors texts={errors.state} />
+							)}
+							<StyledInput
+								placeholder="Password"
+								value={values.password}
+								onChangeText={handleChange("password")}
+								autoCorrect={false}
+								secureTextEntry={true}
+								onBlur={handleBlur("password")}
+							/>
+							{values.password.length !== 0 &&
+								errors.password &&
+								touched.password && <Errors texts={errors.password} />}
+							{isValid && value !== null ? (
+								<LoginButton onPress={handleSubmit}>
+									<LoginText>REGISTER</LoginText>
+								</LoginButton>
+							) : isLoading ? (
+								<LoginButton onPress={handleSubmit}>
+									<ActivityIndicator size="small" color="#fff" />
+								</LoginButton>
+							) : (
+								<DisabledButton>
+									<LoginText>REGISTER</LoginText>
+								</DisabledButton>
+							)}
+						</>
+					)}
+				</Formik>
+			</BottomView>
+		</KeyboardUsingScreen>
 	);
 };
 
