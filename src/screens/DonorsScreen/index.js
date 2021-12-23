@@ -125,7 +125,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 					onPress={() => setIsFilterOpen(!isFilterOpen)}
 				/> */}
 			{donors === null ? (
-				<Title style={{marginTop: 30, textAlign: "center"}}>Loading...</Title>
+				<Title style={{ marginTop: 30, textAlign: "center" }}>Loading...</Title>
 			) : (
 				<FlatList
 					data={donors}
