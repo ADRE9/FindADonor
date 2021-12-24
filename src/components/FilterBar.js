@@ -38,7 +38,7 @@ const FilterBar = ({
 										? setActiveOption(null)
 										: setActiveOption(option)
 								}
-							>ks
+							>
 								<Text
 									style={
 										activeOption === option
