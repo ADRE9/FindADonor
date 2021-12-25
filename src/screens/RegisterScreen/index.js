@@ -26,8 +26,17 @@ import DisabledButton from "../../components/DisabledButton";
 import { TopWaveWB } from "svg";
 import perfectSize from "../../utils/pixelPerfect";
 import { KeyboardUsingScreen } from "../../components/KeyboardUsingScreen";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function index({ navigation }) {
+	const [open, setOpen] = useState(false);
+	const [gender, setGender] = useState(null);
+	const [items, setItems] = useState([
+		{ label: "Male", value: "Male" },
+		{ label: "Female", value: "Female" },
+		{ label: "Other", value: "Other" },
+	]);
+
 	return (
 		<KeyboardUsingScreen>
 			<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
@@ -42,7 +51,16 @@ export default function index({ navigation }) {
 						age: "",
 						phoneNumber: "",
 					}}
-					onSubmit={values => navigation.navigate("Register2", { values })}
+					onSubmit={values => {
+						if (gender !== null) {
+							navigation.navigate("Register2", {
+								values: { ...values, gender: gender },
+							});
+							return;
+						}
+						alert("Select Gender and Try Again");
+						return;
+					}}
 					validateOnMount
 				>
 					{({
@@ -77,6 +95,21 @@ export default function index({ navigation }) {
 							{values.email.length !== 0 && errors.email && touched.email && (
 								<Errors texts={errors.email} />
 							)}
+							<DropDownPicker
+								placeholder="Gender"
+								open={open}
+								value={gender}
+								items={items}
+								setOpen={setOpen}
+								setValue={setGender}
+								setItems={setItems}
+								defaultIndex={0}
+								style={styles.dropdown}
+								dropDownStyle={styles.dropDownStyle}
+								containerStyle={styles.containerStyle}
+								onChangeItem={item => console.log(item.label, item.value)}
+								listMode="SCROLLVIEW"
+							/>
 							<StyledInput
 								value={values.age}
 								onChangeText={handleChange("age")}
@@ -87,6 +120,7 @@ export default function index({ navigation }) {
 							{values.age < 18 && errors.age && touched.age && (
 								<Errors texts={errors.age} />
 							)}
+
 							<StyledInput
 								value={values.phoneNumber}
 								onChangeText={handleChange("phoneNumber")}

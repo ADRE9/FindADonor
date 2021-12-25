@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
 	widthPercentageToDP as wp,
@@ -125,7 +125,9 @@ function DonorsScreen({ findAllDonors, donors }) {
 					onPress={() => setIsFilterOpen(!isFilterOpen)}
 				/> */}
 			{donors === null ? (
-				<Title style={{ marginTop: 30, textAlign: "center" }}>Loading...</Title>
+				<View style={{ marginTop: 30, textAlign: "center" }}>
+					<ActivityIndicator size="large" color="#F88386" />
+				</View>
 			) : (
 				<FlatList
 					data={donors}
