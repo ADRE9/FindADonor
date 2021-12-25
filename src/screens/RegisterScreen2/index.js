@@ -37,7 +37,7 @@ const RegisterScreen2 = ({
 	isLoading,
 }) => {
 	const [open, setOpen] = useState(false);
-	const [value, setValue] = useState(null);
+	const [bloodGrp, setBloodGrp] = useState(null);
 	const [items, setItems] = useState([
 		{ label: "A +ve", value: "A +ve" },
 		{ label: "B +ve", value: "B +ve" },
@@ -50,9 +50,9 @@ const RegisterScreen2 = ({
 	]);
 	console.log(route.params);
 	const register = async values => {
-		const data = { ...values, ...route.params.values, bloodGroup: value };
+		const data = { ...values, ...route.params.values, bloodGroup: bloodGrp };
 		console.log(data);
-		if (value !== null) {
+		if (bloodGrp !== null) {
 			await registerUserAction(data);
 			return;
 		}
@@ -90,16 +90,17 @@ const RegisterScreen2 = ({
 							<DropDownPicker
 								placeholder="Blood Group"
 								open={open}
-								value={value}
+								value={bloodGrp}
 								items={items}
 								setOpen={setOpen}
-								setValue={setValue}
+								setValue={setBloodGrp}
 								setItems={setItems}
 								style={styles.dropdown}
 								defaultIndex={0}
 								dropDownStyle={styles.dropDownStyle}
 								containerStyle={styles.containerStyle}
 								onChangeItem={item => console.log(item.label, item.value)}
+								listMode="SCROLLVIEW"
 							/>
 							<StyledInput
 								placeholder="House No , Landmark , Building"
@@ -152,7 +153,7 @@ const RegisterScreen2 = ({
 							{values.password.length !== 0 &&
 								errors.password &&
 								touched.password && <Errors texts={errors.password} />}
-							{isValid && value !== null ? (
+							{isValid && bloodGrp !== null ? (
 								<LoginButton onPress={handleSubmit}>
 									<LoginText>REGISTER</LoginText>
 								</LoginButton>
