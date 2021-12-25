@@ -61,9 +61,7 @@ const LoginScreen = ({ navigation, loginUserAction, isLoading }) => {
 	return (
 		<KeyboardUsingScreen>
 			<TopWaveWB width={perfectSize(411)} height={perfectSize(327.33)} />
-
 			<Text style={styles.heading}>LOGIN</Text>
-
 			<BottomView>
 				<Formik
 					validationSchema={schema}
@@ -142,6 +140,7 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "white",
 		fontSize: hp("6%"),
+		fontFamily: "Segoe UI Light",
 		position: "absolute",
 		top: perfectSize(150),
 		textAlign: "center",

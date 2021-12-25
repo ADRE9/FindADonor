@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import rootStore from "./src/redux/store";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import {setCustomText} from 'react-native-global-props';
 import "react-native-gesture-handler";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
@@ -20,8 +21,16 @@ export default function App() {
 		"Segoe UI Bold Italic": require("./src/assets/fonts/Segoe-UI-Bold-Italic.ttf"),
 		"Segoe UI Bold": require("./src/assets/fonts/Segoe-UI-Bold.ttf"),
 		"Segoe UI Italic": require("./src/assets/fonts/Segoe-UI-Italic.ttf"),
-		"Segoe UI Regualar": require("./src/assets/fonts/Segoe-UI-Regualar.ttf"),
+		"Segoe UI Regular": require("./src/assets/fonts/Segoe-UI-Regular.ttf"),
+		"Segoe UI Light":require("./src/assets/fonts/SegoeUI-Light.ttf"),
 	});
+
+	const customTextProps = {
+		style: {
+			fontFamily:'Segoe UI Regular',
+			color: 'black'
+		}
+	};
 
 	const _cacheResourcesAsync = async () => {
 		const images = [
@@ -39,7 +48,8 @@ export default function App() {
 			require("./src/assets/fonts/Segoe-UI-Bold-Italic.ttf"),
 			require("./src/assets/fonts/Segoe-UI-Bold.ttf"),
 			require("./src/assets/fonts/Segoe-UI-Italic.ttf"),
-			require("./src/assets/fonts/Segoe-UI-Regualar.ttf"),
+			require("./src/assets/fonts/Segoe-UI-Regular.ttf"),
+			require("./src/assets/fonts/SegoeUI-Light.ttf")
 		];
 
 		const cacheImages = images.map(image => {
@@ -49,6 +59,8 @@ export default function App() {
 		const cacheFonts = fonts.map(font => {
 			return Asset.fromModule(font).downloadAsync();
 		});
+
+		setCustomText(customTextProps);
 
 		return Promise.all(cacheImages, cacheFonts);
 	};

@@ -56,13 +56,13 @@ export default function index({ navigation }) {
 		backgroundColor: "#fff",
 		titleStyles: {
 			color: "#F88386",
-			fontFamily: "Segoe UI Regualar",
+			fontFamily: "Segoe UI Regular",
 			fontSize: 24,
 			width: perfectSize(254),
 		},
 		subTitleStyles: {
 			color: "#B9BBC3",
-			fontFamily: "Segoe UI Regualar",
+			fontFamily: "Segoe UI Regular",
 			fontSize: 18,
 			width: perfectSize(254),
 		},

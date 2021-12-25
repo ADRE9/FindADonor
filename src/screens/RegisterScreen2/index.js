@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "white",
 		fontSize: hp("6%"),
+		fontFamily: "Segoe UI Light",
 		position: "absolute",
 		top: perfectSize(150),
 		textAlign: "center",
