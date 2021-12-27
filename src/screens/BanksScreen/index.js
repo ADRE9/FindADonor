@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
@@ -25,13 +25,16 @@ import { AntDesign } from "@expo/vector-icons";
 import { BankLocation } from "svg";
 
 import { findAllDonors as findAllBanks } from "../../redux/actions/donorsAction";
+import { isFiltered } from "../../utils/utils";
 
 function BanksScreen({ findAllBanks, banks }) {
 	const [distance, setDistance] = useState(null);
-	const [isFilterOpen, setIsFilterOpen] = useState(true);
+	const allFilters = { distance };
+
+	// const [isFilterOpen, setIsFilterOpen] = useState(true);
 
 	useFocusEffect(
-		React.useCallback(() => {
+		useCallback(() => {
 			const subscribe = async () => findAllBanks();
 
 			subscribe();
@@ -40,51 +43,54 @@ function BanksScreen({ findAllBanks, banks }) {
 
 	const renderItem = bankObj => {
 		const bank = bankObj.item;
-		return (
-			<Card>
-				<Profile>
-					<Avatar>
-						<BankLocation style={styles.avatar} />
-					</Avatar>
-					<View>
-						<Title numberOfLines={1}>{bank.name + ` Hospital`}</Title>
-						<Description>
-							<AntDesign name="phone" size={hp("1")} color="#000" />
-							{" " + bank.phoneNumber}
-						</Description>
-						<Description>
-							<AntDesign name="mail" size={hp("1")} color="#000" />
-							{" " + bank.email}
-						</Description>
-					</View>
-				</Profile>
-				<Description numberOfLines={2}>
-					<Italic>
-						<Capitalize>
-							{`${bank.landmark}, ${bank.city}, ${bank.district}, ${bank.state}`}
-						</Capitalize>
-					</Italic>
-				</Description>
-				<View style={{ flexDirection: "row" }}>
-					{/* <ActionButton>
+		return isFiltered(bank, allFilters) ? (
+			<>
+				<Card>
+					<Profile>
+						<Avatar>
+							<BankLocation style={styles.avatar} />
+						</Avatar>
+						<View>
+							<Title numberOfLines={1}>{bank.name + ` Hospital`}</Title>
+							<Description>
+								<AntDesign name="phone" size={hp("1")} color="#000" />
+								{" " + bank.phoneNumber}
+							</Description>
+							<Description>
+								<AntDesign name="mail" size={hp("1")} color="#000" />
+								{" " + bank.email}
+							</Description>
+						</View>
+					</Profile>
+					<Description numberOfLines={2}>
+						<Italic>
+							<Capitalize>
+								{`${bank.landmark}, ${bank.city}, ${bank.district}, ${bank.state}`}
+							</Capitalize>
+						</Italic>
+					</Description>
+					<View style={{ flexDirection: "row" }}>
+						{/* <ActionButton>
 						<Text style={styles.buttonText}>Request</Text>
 					</ActionButton> */}
-					<ActionButton>
-						<Text style={styles.buttonText}>Locate</Text>
-					</ActionButton>
-				</View>
-			</Card>
-		);
+						<ActionButton>
+							<Text style={styles.buttonText}>Locate</Text>
+						</ActionButton>
+					</View>
+				</Card>
+				<View style={{ height: 10 }} />
+			</>
+		) : null;
 	};
 
 	return (
 		<Screen>
 			<Filters
-				style={
-					isFilterOpen
-						? { transform: [{ translateY: 0 }] }
-						: { transform: [{ translateY: -300 }], height: 0 }
-				}
+			// style={
+			// 	isFilterOpen
+			// 		? { transform: [{ translateY: 0 }] }
+			// 		: { transform: [{ translateY: -300 }], height: 0 }
+			// }
 			>
 				<FilterBar
 					options={[5, 10, 50, 100, 150, 200, 300, 500]}
@@ -93,6 +99,7 @@ function BanksScreen({ findAllBanks, banks }) {
 					setActiveOption={setDistance}
 					iconName={"swap"}
 					iconPack={"antdesign"}
+					optionRenderer={null}
 				/>
 			</Filters>
 			{/* <TouchableOpacity
@@ -121,8 +128,8 @@ function BanksScreen({ findAllBanks, banks }) {
 					data={banks}
 					renderItem={renderItem}
 					keyExtractor={bank => bank._id}
-					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 					contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+					extraData={Object.values(allFilters)}
 				/>
 			)}
 		</Screen>
