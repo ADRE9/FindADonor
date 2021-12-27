@@ -91,7 +91,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 				}
 			>
 				<FilterBar
-					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+					options={[5, 10, 50, 100, 150, 200, 300, 500]}
 					unit={"km"}
 					activeOption={distance}
 					setActiveOption={setDistance}

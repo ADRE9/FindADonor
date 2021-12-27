@@ -28,7 +28,6 @@ import { findAllDonors as findAllBanks } from "../../redux/actions/donorsAction"
 
 function BanksScreen({ findAllBanks, banks }) {
 	const [distance, setDistance] = useState(null);
-	const [blood, setBlood] = useState(null);
 	const [isFilterOpen, setIsFilterOpen] = useState(true);
 
 	useFocusEffect(
@@ -88,20 +87,12 @@ function BanksScreen({ findAllBanks, banks }) {
 				}
 			>
 				<FilterBar
-					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+					options={[5, 10, 50, 100, 150, 200, 300, 500]}
 					unit={"km"}
 					activeOption={distance}
 					setActiveOption={setDistance}
 					iconName={"swap"}
 					iconPack={"antdesign"}
-				/>
-				<FilterBar
-					options={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
-					unit={""}
-					activeOption={blood}
-					setActiveOption={setBlood}
-					iconName={"blood-drop"}
-					iconPack={"fontisto"}
 				/>
 			</Filters>
 			{/* <TouchableOpacity
