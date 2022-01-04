@@ -41,7 +41,12 @@ export default function HomeStack() {
 				component={BanksScreen}
 			/>
 			<Stack.Screen
-				options={{ header: () => null }}
+				options={{ header: ({ navigation }) => (
+						<AppBar
+							title={"REQUESTS"}
+							goBack={() => navigation.goBack()}
+						/>
+					), }}
 				name="Requests"
 				component={RequestsScreen}
 			/>

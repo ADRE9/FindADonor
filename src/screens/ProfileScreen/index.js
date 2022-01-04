@@ -4,6 +4,7 @@ import {
 	Text,
 	View,
 	Image,
+	Alert,
 	Button,
 	Dimensions,
 	TouchableOpacity,
@@ -52,6 +53,7 @@ const { width } = Dimensions.get("window");
 const CircularButton = props => {
 	return (
 		<TouchableOpacity
+			onPress={props.onPress}
 			{...props}
 			activeOpacity={0.9}
 			style={{
@@ -94,7 +96,7 @@ const ProfileScreen = ({
 				<Role>{userData.role.toUpperCase()}</Role>
 
 				<Box>
-					<CircularButton>
+					<CircularButton onPress={()=>Alert.alert("Phone Number",userData.phoneNumber)}>
 						<Icon
 							iconPack="feather"
 							name="phone"
@@ -102,7 +104,7 @@ const ProfileScreen = ({
 							color="#f88386"
 						></Icon>
 					</CircularButton>
-					<CircularButton>
+					<CircularButton onPress={()=>Alert.alert("Email Address",userData.email)}>
 						<Icon
 							iconPack="feather"
 							name="mail"

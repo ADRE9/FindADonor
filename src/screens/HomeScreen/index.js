@@ -33,7 +33,7 @@ const HomeScreen = ({ name, navigation }) => {
 					<MaterialCommunityIcons name="blood-bag" size={50} color="#f88386" />
 					<CardTitle>BLOOD BANK</CardTitle>
 				</SquaredCard>
-				<SquaredCard>
+				<SquaredCard onPress={() => navigation.navigate("Requests")}>
 					<FontAwesome name="envelope-o" size={40} color="#f88386" />
 					<CardTitle>REQUESTS</CardTitle>
 				</SquaredCard>
