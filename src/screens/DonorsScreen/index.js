@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
@@ -24,87 +24,108 @@ import { findAllDonors } from "../../redux/actions/donorsAction";
 import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { MaleAvatar } from "svg";
+import { isFiltered } from "../../utils/utils";
 
 function DonorsScreen({ findAllDonors, donors }) {
 	const [distance, setDistance] = useState(null);
-	const [blood, setBlood] = useState(null);
-	const [isFilterOpen, setIsFilterOpen] = useState(true);
+	const [bloodGroup, setBloodGroup] = useState(null);
+	const allFilters = { distance, bloodGroup };
+
+	// const [isFilterOpen, setIsFilterOpen] = useState(true);
+
 	useFocusEffect(
-		React.useCallback(() => {
+		useCallback(() => {
 			const subscribe = async () => findAllDonors();
 
 			subscribe();
 		}, []),
 	);
+
 	const renderItem = donorObj => {
 		const donor = donorObj.item;
-		return (
-			<Card>
-				<Profile>
-					<Avatar>
-						<MaleAvatar style={styles.avatar} />
-					</Avatar>
-					<View>
-						<Title numberOfLines={1}>{donor.name}</Title>
-						<Description>
-							{`${donor.bloodGroup} ${donor.role}, `.replace(/^\w/, c =>
-								c.toUpperCase(),
-							)}
+		return isFiltered(donor, allFilters) ? (
+			<>
+				<Card>
+					<Profile>
+						<Avatar>
+							<MaleAvatar style={styles.avatar} />
+						</Avatar>
+						<View>
+							<Title numberOfLines={1}>{donor.name}</Title>
+							<Description>
+								{`${donor.bloodGroup} ${donor.role}, `.replace(/^\w/, c =>
+									c.toUpperCase(),
+								)}
 
-							{donor.age + " years old"}
-						</Description>
-						<Description>
-							<AntDesign name="mail" size={hp("1")} color="#000" />
-							{" " + donor.email}
-						</Description>
-						<Description>
-							<AntDesign name="phone" size={hp("1")} color="#000" />
-							{" " + donor.phoneNumber}
-						</Description>
+								{donor.age + " years old"}
+							</Description>
+							<Description>
+								<AntDesign name="mail" size={hp("1")} color="#000" />
+								{" " + donor.email}
+							</Description>
+							<Description>
+								<AntDesign name="phone" size={hp("1")} color="#000" />
+								{" " + donor.phoneNumber}
+							</Description>
+						</View>
+					</Profile>
+					<Description numberOfLines={2}>
+						<Italic>
+							<Capitalize>
+								{`${donor.landmark}, ${donor.city}, ${donor.district}, ${donor.state}`}
+							</Capitalize>
+						</Italic>
+					</Description>
+					<View style={{ flexDirection: "row" }}>
+						<ActionButton>
+							<Text style={styles.buttonText}>Request</Text>
+						</ActionButton>
+						<ActionButton>
+							<Text style={styles.buttonText}>Locate</Text>
+						</ActionButton>
 					</View>
-				</Profile>
-				<Description numberOfLines={2}>
-					<Italic>
-						<Capitalize>
-							{`${donor.landmark}, ${donor.city}, ${donor.district}, ${donor.state}`}
-						</Capitalize>
-					</Italic>
-				</Description>
-				<View style={{ flexDirection: "row" }}>
-					<ActionButton>
-						<Text style={styles.buttonText}>Request</Text>
-					</ActionButton>
-					<ActionButton>
-						<Text style={styles.buttonText}>Locate</Text>
-					</ActionButton>
-				</View>
-			</Card>
-		);
+				</Card>
+				<View style={{ height: 10 }} />
+			</>
+		) : null;
 	};
 	return (
 		<Screen>
 			<Filters
-				style={
-					isFilterOpen
-						? { transform: [{ translateY: 0 }] }
-						: { transform: [{ translateY: -300 }], height: 0 }
-				}
+			// style={
+			// 	isFilterOpen
+			// 		? { transform: [{ translateY: 0 }] }
+			// 		: { transform: [{ translateY: -300 }], height: 0 }
+			// }
 			>
 				<FilterBar
-					options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
+					options={[5, 10, 50, 100, 150, 200, 300, 500]}
 					unit={"km"}
 					activeOption={distance}
 					setActiveOption={setDistance}
 					iconName={"swap"}
 					iconPack={"antdesign"}
+					optionRenderer={null}
 				/>
 				<FilterBar
-					options={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
+					options={[
+						"a +ve",
+						"a -ve",
+						"b +ve",
+						"b -ve",
+						"o +ve",
+						"o -ve",
+						"ab +ve",
+						"ab -ve",
+					]}
 					unit={""}
-					activeOption={blood}
-					setActiveOption={setBlood}
+					activeOption={bloodGroup}
+					setActiveOption={setBloodGroup}
 					iconName={"blood-drop"}
 					iconPack={"fontisto"}
+					optionRenderer={option =>
+						option.slice(0, -2).replace(/^\w/, c => c.toUpperCase())
+					}
 				/>
 			</Filters>
 			{/* <TouchableOpacity
@@ -133,8 +154,8 @@ function DonorsScreen({ findAllDonors, donors }) {
 					data={donors}
 					renderItem={renderItem}
 					keyExtractor={donor => donor._id}
-					ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 					contentContainerStyle={{ paddingTop: 10, paddingBottom: 10 }}
+					extraData={Object.values(allFilters)}
 				/>
 			)}
 		</Screen>

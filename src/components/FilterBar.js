@@ -15,7 +15,12 @@ const FilterBar = ({
 	setActiveOption,
 	iconName,
 	iconPack,
+	optionRenderer,
 }) => {
+	const getOption = option => {
+		if (optionRenderer != null) return optionRenderer(option);
+		else return option;
+	};
 	return (
 		<Root style={{ width: "100%" }}>
 			<IconBox style={{ height: "100%" }}>
@@ -46,7 +51,7 @@ const FilterBar = ({
 											: styles.optionText
 									}
 								>
-									{option + unit}
+									{getOption(option) + unit}
 								</Text>
 							</Option>
 						);
