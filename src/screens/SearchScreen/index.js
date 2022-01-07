@@ -27,6 +27,8 @@ import {
 	Avatar,
 	Profile,
 	RequestButton,
+	ActionButton,
+	ButtonText,
 } from "./styledComponent";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, {
@@ -189,6 +191,14 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 									setActiveOption={setDistance}
 								/>
 							</ScrollView>
+							<View style={styles.actionBox}>
+								<ActionButton onPress={() => closeDrawer()}>
+									<ButtonText>APPLY</ButtonText>
+								</ActionButton>
+								<ActionButton onPress={() => closeDrawer()}>
+									<ButtonText>CANCEL</ButtonText>
+								</ActionButton>
+							</View>
 						</View>
 						<Pressable
 							onPress={() => closeDrawer()}
@@ -234,7 +244,14 @@ const styles = StyleSheet.create({
 		justifyContent: "flex-start",
 		flexDirection: "row",
 		marginTop: 50,
-		paddingLeft: 15,
+		paddingLeft: 16,
+	},
+	actionBox: {
+		justifyContent: "center",
+		flexDirection: "row",
+		marginBottom: 100,
+		paddingLeft: 10,
+		paddingRight:10
 	},
 	menu: {
 		backgroundColor: "#f88386",
