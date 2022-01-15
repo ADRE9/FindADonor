@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const URL = "https://findadonor.herokuapp.com/api";
+// const URL = "https://findadonor.herokuapp.com/api";https://findadonorapp.azurewebsites.net/
+
+const URL="https://findadonorapp.azurewebsites.net/api"
 
 export const loginUser = data => axios.post(`${URL}/auth/login`, data);
 
