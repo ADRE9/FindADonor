@@ -35,3 +35,6 @@ export const registerAsDonor = (token, data) =>
 
 export const findADonor = token =>
 	axios.get(`${URL}/auth/findADonor`, { headers: { Authorization: token } });
+
+
+export const findBanks=token=>axios.get(`${URL}/bloodbank/all`, { headers: { Authorization: token } })

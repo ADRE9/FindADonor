@@ -39,8 +39,9 @@ export const Title = styled.Text`
 	color: #707070;
 	font-size: ${hp("2.4")}px;
 	margin-bottom: ${hp("1")}px;
-	font-weight: 600
+	font-weight: 600;
 	margin-left: 10px;
+	
 `;
 export const Description = styled.Text`
 	color: #909090;

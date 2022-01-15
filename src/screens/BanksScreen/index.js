@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View,Platform } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import FilterBar from "../../components/FilterBar";
+import * as Linking from "expo-linking";
 import { Screen } from "../../components/Screen";
 import {
 	Avatar,
@@ -24,10 +25,10 @@ import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { BankLocation } from "svg";
 
-import { findAllDonors as findAllBanks } from "../../redux/actions/donorsAction";
+import { findAllBanks } from "../../redux/actions/donorsAction";
 import { isFiltered } from "../../utils/utils";
 
-function BanksScreen({ findAllBanks, banks }) {
+function BanksScreen({ findAllBanks, banks,navigation }) {
 	const [distance, setDistance] = useState(null);
 	const allFilters = { distance };
 
@@ -50,8 +51,8 @@ function BanksScreen({ findAllBanks, banks }) {
 						<Avatar>
 							<BankLocation style={styles.avatar} />
 						</Avatar>
-						<View>
-							<Title numberOfLines={1}>{bank.name + ` Hospital`}</Title>
+						<View style={{marginRight: 20}}>
+							<Title numberOfLines={1}>{bank.name}</Title>
 							<Description>
 								<AntDesign name="phone" size={hp("1")} color="#000" />
 								{" " + bank.phoneNumber}
@@ -73,7 +74,12 @@ function BanksScreen({ findAllBanks, banks }) {
 						{/* <ActionButton>
 						<Text style={styles.buttonText}>Request</Text>
 					</ActionButton> */}
-						<ActionButton>
+						<ActionButton onPress={() => {
+							var scheme =
+								Platform.OS === 'ios' ? 'maps://app?daddr=' : 'google.navigation:q=';
+							var url = scheme + `${bank.location.latitude}+${bank.location.longitude}`;
+							Linking.openURL(url);
+						}}>
 							<Text style={styles.buttonText}>Locate</Text>
 						</ActionButton>
 					</View>
@@ -85,7 +91,7 @@ function BanksScreen({ findAllBanks, banks }) {
 
 	return (
 		<Screen>
-			<Filters
+			{/* <Filters
 			// style={
 			// 	isFilterOpen
 			// 		? { transform: [{ translateY: 0 }] }
@@ -101,7 +107,7 @@ function BanksScreen({ findAllBanks, banks }) {
 					iconPack={"antdesign"}
 					optionRenderer={null}
 				/>
-			</Filters>
+			</Filters> */}
 			{/* <TouchableOpacity
 				style={styles.filterIconBox}
 				onPress={() => setIsFilterOpen(!isFilterOpen)}
@@ -138,7 +144,7 @@ function BanksScreen({ findAllBanks, banks }) {
 
 const mapStateToProps = state => {
 	return {
-		banks: state.donors.donors,
+		banks: state.donors.banks,
 	};
 };
 

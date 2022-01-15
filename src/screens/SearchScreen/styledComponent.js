@@ -56,6 +56,7 @@ export const Description = styled.Text`
 `;
 export const Capitalize = styled.Text`
 	text-transform: capitalize;
+	color:white
 `;
 export const Bold = styled.Text`
 	font-weight: bold;
@@ -72,7 +73,7 @@ export const RequestButton = styled.TouchableOpacity`
 	justify-content: space-evenly;
 	border-radius: 100px;
 	margin-top: 10px;
-	elevation: 5;
+	/* elevation: 5; */
 	flex-direction: row;
 `;
 

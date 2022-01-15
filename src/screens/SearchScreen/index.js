@@ -38,13 +38,14 @@ import Animated, {
 	withTiming,
 } from "react-native-reanimated";
 import { connect } from "react-redux";
-import { findAllDonors } from "../../redux/actions/donorsAction";
+import { findAllDonors,findAllBanks } from "../../redux/actions/donorsAction";
 import { useFocusEffect } from "@react-navigation/native";
 import Icon from "../../components/Icon";
 import SelectFilter from "../../components/SelectFilter";
 import { ScrollView } from "react-native-gesture-handler";
+import * as Linking from "expo-linking"
 
-const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
+const SearchScreen = ({ navigation, location, findAllDonors,findAllBanks,banks, donors }) => {
 	const startWidth = -wp("100");
 	const endWidth = wp("0");
 	const translateX = useSharedValue(startWidth);
@@ -55,6 +56,14 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 	useFocusEffect(
 		React.useCallback(() => {
 			const subscribe = async () => await findAllDonors();
+
+			subscribe();
+		}, []),
+	);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			const subscribe = async () => await findAllBanks();
 
 			subscribe();
 		}, []),
@@ -79,7 +88,7 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 			easing: Easing.out(Easing.exp),
 		});
 	};
-
+	console.log(donors);
 	return (
 		<Screen>
 			{location && donors !== null ? (
@@ -101,8 +110,7 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 							pinColor="aqua"
 							description="My Location"
 						/>
-						{/* {console.log(donors)} */}
-						{donors.map((donor, index) => (
+						{donors&&donors.map((donor, index) => (
 							<Marker
 								key={index}
 								coordinate={donor.location}
@@ -110,15 +118,15 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 								pinColor="red"
 								description="Donor"
 							>
-								<Callout tooltip>
+								<Callout onPress={()=>Linking.openURL(`tel:${donor.phoneNumber}`)}>
 									<MapCard>
 										<Profile>
-											<Avatar>
+											{/* <Avatar>
 												<Image
 													style={styles.avatar}
 													source={require("../../assets/images/Avatar.png")}
 												/>
-											</Avatar>
+											</Avatar> */}
 											<View>
 												<Title numberOfLines={1}>{donor.name}</Title>
 												<Description>
@@ -144,6 +152,40 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 										</Description>
 										<RequestButton>
 											<Text>Request the Donor</Text>
+										</RequestButton>
+									</MapCard>
+								</Callout>
+							</Marker>
+						))}
+						{banks&&banks.map((bank, index) => (
+							<Marker
+								key={index}
+								coordinate={bank.location}
+								title={bank.name}
+								pinColor="indigo"
+								description="bank"
+							>
+								<Callout tooltip onPress={()=>Linking.openURL(`tel:${bank.phoneNumber}`)}>
+									<MapCard>
+										<Profile>
+											<View>
+												<Title numberOfLines={1}>{bank.name}</Title>
+												
+												<Description>
+													<AntDesign name="phone" size={hp("1")} color="#fff" />
+													{" " + bank.phoneNumber}
+												</Description>
+											</View>
+										</Profile>
+										<Description numberOfLines={2}>
+											<Italic>
+												<Capitalize>
+													{`${bank.landmark}, ${bank.city}, ${bank.district}, ${bank.state}`}
+												</Capitalize>
+											</Italic>
+										</Description>
+										<RequestButton >
+											<Text>Request the Bank</Text>
 										</RequestButton>
 									</MapCard>
 								</Callout>
@@ -217,11 +259,12 @@ const mapStateToProps = state => {
 	return {
 		location: state.user.location ? state.user.location : null,
 		donors: state.donors.donors,
+		banks: state.donors.banks,
 	};
 };
 
 export default connect(mapStateToProps, {
-	findAllDonors,
+	findAllDonors,findAllBanks
 })(SearchScreen);
 
 const styles = StyleSheet.create({

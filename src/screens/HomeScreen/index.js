@@ -33,9 +33,9 @@ const HomeScreen = ({ name, navigation }) => {
 					<MaterialCommunityIcons name="blood-bag" size={50} color="#f88386" />
 					<CardTitle>BLOOD BANK</CardTitle>
 				</SquaredCard>
-				<SquaredCard onPress={() => navigation.navigate("Requests")}>
-					<FontAwesome name="envelope-o" size={40} color="#f88386" />
-					<CardTitle>REQUESTS</CardTitle>
+				<SquaredCard onPress={() => navigation.navigate("Search")}>
+					<FontAwesome name="search" size={40} color="#f88386" />
+					<CardTitle>SEARCH</CardTitle>
 				</SquaredCard>
 				<SquaredCard onPress={() => navigation.navigate("Profile")}>
 					<MaterialCommunityIcons

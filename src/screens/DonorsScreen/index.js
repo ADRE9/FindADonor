@@ -91,7 +91,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 	};
 	return (
 		<Screen>
-			<Filters
+			{/* <Filters
 			// style={
 			// 	isFilterOpen
 			// 		? { transform: [{ translateY: 0 }] }
@@ -127,7 +127,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 						option.slice(0, -2).replace(/^\w+/, c => c.toUpperCase())
 					}
 				/>
-			</Filters>
+			</Filters> */}
 			{/* <TouchableOpacity
 				style={styles.filterIconBox}
 				onPress={() => setIsFilterOpen(!isFilterOpen)}
