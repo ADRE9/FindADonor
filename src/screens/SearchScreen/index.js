@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	StyleSheet,
 	Text,
@@ -27,6 +27,8 @@ import {
 	Avatar,
 	Profile,
 	RequestButton,
+	ActionButton,
+	ButtonText,
 } from "./styledComponent";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, {
@@ -38,11 +40,17 @@ import Animated, {
 import { connect } from "react-redux";
 import { findAllDonors } from "../../redux/actions/donorsAction";
 import { useFocusEffect } from "@react-navigation/native";
+import Icon from "../../components/Icon";
+import SelectFilter from "../../components/SelectFilter";
+import { ScrollView } from "react-native-gesture-handler";
 
 const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 	const startWidth = -wp("100");
 	const endWidth = wp("0");
 	const translateX = useSharedValue(startWidth);
+
+	const [distance, setDistance] = useState(null);
+	const [bloodGroup, setBloodGroup] = useState(null);
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -115,7 +123,7 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 												<Title numberOfLines={1}>{donor.name}</Title>
 												<Description>
 													{`${donor.bloodGroup} ${donor.role}, `.replace(
-														/^\w/,
+														/^\w+/,
 														c => c.toUpperCase(),
 													)}
 
@@ -147,7 +155,51 @@ const SearchScreen = ({ navigation, location, findAllDonors, donors }) => {
 						<FilterText>FILTER</FilterText>
 					</FilterView>
 					<Animated.View style={[styles.sideMenu, viewStyle]}>
-						<View style={styles.menu}></View>
+						<View style={styles.menu}>
+							<View style={styles.titleBox}>
+								<Icon
+									iconPack="MaterialCommunityIcons"
+									name="sort-variant"
+									size={24}
+									color="#fff"
+								></Icon>
+								<FilterText>FILTER</FilterText>
+							</View>
+							<ScrollView showsVerticalScrollIndicator={false}>
+								<SelectFilter
+									title="BLOOD GROUP"
+									options={[
+										"a +ve",
+										"a -ve",
+										"b +ve",
+										"b -ve",
+										"o +ve",
+										"o -ve",
+										"ab +ve",
+										"ab -ve",
+									]}
+									activeOption={bloodGroup}
+									setActiveOption={setBloodGroup}
+									optionRenderer={option =>
+										option.slice(0, -2).replace(/^\w+/, c => c.toUpperCase())
+									}
+								/>
+								<SelectFilter
+									title="DISTANCE (in kms)"
+									options={[5, 10, 50, 100, 150, 200, 300, 500]}
+									activeOption={distance}
+									setActiveOption={setDistance}
+								/>
+							</ScrollView>
+							<View style={styles.actionBox}>
+								<ActionButton onPress={() => closeDrawer()}>
+									<ButtonText>APPLY</ButtonText>
+								</ActionButton>
+								<ActionButton onPress={() => closeDrawer()}>
+									<ButtonText>CANCEL</ButtonText>
+								</ActionButton>
+							</View>
+						</View>
 						<Pressable
 							onPress={() => closeDrawer()}
 							style={styles.backdrop}
@@ -187,6 +239,19 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		width: wp("100"),
 		height: hp("110"),
+	},
+	titleBox: {
+		justifyContent: "flex-start",
+		flexDirection: "row",
+		marginTop: 50,
+		paddingLeft: 16,
+	},
+	actionBox: {
+		justifyContent: "center",
+		flexDirection: "row",
+		marginBottom: 100,
+		paddingLeft: 10,
+		paddingRight:10
 	},
 	menu: {
 		backgroundColor: "#f88386",

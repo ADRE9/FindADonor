@@ -127,7 +127,7 @@ const ProfileScreen = ({
 						<Value>
 							{userData.bloodGroup
 								.slice(0, -2)
-								.replace(/^\w/, c => c.toUpperCase())}
+								.replace(/^\w+/, c => c.toUpperCase())}
 						</Value>
 						<Key>Blood Group</Key>
 					</View>

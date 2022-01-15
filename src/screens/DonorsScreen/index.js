@@ -53,7 +53,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 						<View>
 							<Title numberOfLines={1}>{donor.name}</Title>
 							<Description>
-								{`${donor.bloodGroup} ${donor.role}, `.replace(/^\w/, c =>
+								{`${donor.bloodGroup} ${donor.role}, `.replace(/^\w+/, c =>
 									c.toUpperCase(),
 								)}
 
@@ -124,7 +124,7 @@ function DonorsScreen({ findAllDonors, donors }) {
 					iconName={"blood-drop"}
 					iconPack={"fontisto"}
 					optionRenderer={option =>
-						option.slice(0, -2).replace(/^\w/, c => c.toUpperCase())
+						option.slice(0, -2).replace(/^\w+/, c => c.toUpperCase())
 					}
 				/>
 			</Filters>

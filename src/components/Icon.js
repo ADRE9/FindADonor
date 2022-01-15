@@ -1,5 +1,11 @@
 import React from "react";
-import { AntDesign, Feather, Fontisto } from "@expo/vector-icons";
+import {
+	MaterialCommunityIcons,
+	AntDesign,
+	Feather,
+	Fontisto,
+} from "@expo/vector-icons";
+// https://icons.expo.fyi/
 
 const Icon = props => {
 	switch (props.iconPack.toLowerCase()) {
@@ -11,6 +17,9 @@ const Icon = props => {
 
 		case "fontisto":
 			return <Fontisto {...props} />;
+
+		case "materialcommunityicons":
+			return <MaterialCommunityIcons {...props} />;
 		default:
 			return null;
 	}

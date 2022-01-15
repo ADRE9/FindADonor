@@ -10,9 +10,10 @@ export const FilterView = styled.Pressable`
 	left: ${wp("5")}px;
 	width: ${wp("30")}px;
 	height: ${hp("6")}px;
+	padding-left: 10px;
 	border-radius: ${hp("1")}px;
-	background-color: black;
-	justify-content: space-around;
+	background-color: #f88386;
+	justify-content: flex-start;
 	align-items: center;
 	flex-direction: row;
 `;
@@ -20,6 +21,7 @@ export const FilterView = styled.Pressable`
 export const FilterText = styled.Text`
 	color: white;
 	font-size: ${hp("2.4")}px;
+	margin-left: 8px;
 `;
 
 export const MapCard = styled.View`
@@ -73,3 +75,20 @@ export const RequestButton = styled.TouchableOpacity`
 	elevation: 5;
 	flex-direction: row;
 `;
+
+export const ActionButton = styled.TouchableOpacity`
+	height: ${hp("4.5")}px;
+	background-color: #fff;
+	align-items: center;
+	justify-content: center;
+	padding: 0 20px;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	flex-direction: row;
+`;
+export const ButtonText = styled.Text`
+	color: #f88386;
+	font-size: ${hp("2.4")}px;
+`;
+
