@@ -60,8 +60,6 @@ const CircularButton = props => {
 				backgroundColor: "white",
 				justifyContent: "center",
 				alignItems: "center",
-				// padding: 0,
-				// right: 0,
 				top: perfectSize(30),
 				borderRadius: perfectSize(100),
 				margin: perfectSize(25),
@@ -83,6 +81,20 @@ const ProfileScreen = ({
 	findAllDonors,
 	registerDonor,
 }) => {
+
+	const showRegistrationPrompt=()=>Alert.alert(
+		"Declaration",
+		"By registering yourself as donor you confirm that you don't have any STD's or diseases that may get transfered while donating blood. Although your blood will be passed through few tests this declaration is written to make sure you are healthy for blood donation.",
+		[
+			{
+				text: "Cancel",
+				onPress: () => console.log("Cancel Pressed"),
+				style: "cancel"
+			},
+			{ text: "OK", onPress: () => registerDonor() }
+		]
+	);
+
 	return (
 		<Screen>
 			<TopCircle width={width} height={perfectSize(411)} />
@@ -153,7 +165,7 @@ const ProfileScreen = ({
 						</Text>
 
 						<CardButton
-							onPress={() => registerDonor()}
+							onPress={() => showRegistrationPrompt()}
 							style={({ pressed }) => [
 								{ backgroundColor: pressed ? "#f88386" : "white" },
 							]}
