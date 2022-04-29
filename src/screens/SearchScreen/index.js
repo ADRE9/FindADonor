@@ -52,6 +52,7 @@ const SearchScreen = ({ navigation, location, findAllDonors,findAllBanks,banks, 
 
 	const [distance, setDistance] = useState(null);
 	const [bloodGroup, setBloodGroup] = useState(null);
+	const [filteredDonor, setFilteredDonor] = useState(null);
 
 	useFocusEffect(
 		React.useCallback(() => {
@@ -88,7 +89,12 @@ const SearchScreen = ({ navigation, location, findAllDonors,findAllBanks,banks, 
 			easing: Easing.out(Easing.exp),
 		});
 	};
-	console.log(donors);
+	console.log(donors,bloodGroup);
+
+	const filterDonors = () => {
+		setFilteredDonor(donors.filter(donor => donor.bloodGroup === bloodGroup));
+		closeDrawer();
+	}
 	return (
 		<Screen>
 			{location && donors !== null ? (
@@ -110,7 +116,7 @@ const SearchScreen = ({ navigation, location, findAllDonors,findAllBanks,banks, 
 							pinColor="aqua"
 							description="My Location"
 						/>
-						{donors&&donors.map((donor, index) => (
+						{donors&&(filteredDonor===null?donors:filteredDonor).map((donor, index) => (
 							<Marker
 								key={index}
 								coordinate={donor.location}
@@ -226,15 +232,15 @@ const SearchScreen = ({ navigation, location, findAllDonors,findAllBanks,banks, 
 										option.slice(0, -2).replace(/^\w+/, c => c.toUpperCase())
 									}
 								/>
-								<SelectFilter
+								{/* <SelectFilter
 									title="DISTANCE (in kms)"
 									options={[5, 10, 50, 100, 150, 200, 300, 500]}
 									activeOption={distance}
 									setActiveOption={setDistance}
-								/>
+								/> */}
 							</ScrollView>
 							<View style={styles.actionBox}>
-								<ActionButton onPress={() => closeDrawer()}>
+								<ActionButton onPress={() => filterDonors()}>
 									<ButtonText>APPLY</ButtonText>
 								</ActionButton>
 								<ActionButton onPress={() => closeDrawer()}>
